@@ -77,20 +77,23 @@ class MyLinkedList
         new_node = Node.new(val)
         if @head
            curr_node = @head
-           prev_node = nil 
+           prev_node = nil
+           should_go_again = false 
            i = 0 
-           while curr_node != nil
+           while curr_node != nil || should_go_again
                if index == i
                  new_node.nextLink = curr_node
                  prev_node.nextLink = new_node if prev_node 
+                 break
                else
                  prev_node = curr_node
                  curr_node = curr_node.nextLink
                end
                i+=1
+               should_go_again = true if curr_node == nil && index == i
            end
         else
-          if index == 1
+          if index == 0
              @head = new_node 
           end
         end
@@ -110,7 +113,8 @@ class MyLinkedList
            while curr_node != nil
                if index == i
                  @head = curr_node.nextLink if index == 0
-                 prev_node.nextLink = curr_node.nextLink if prev_node 
+                 prev_node.nextLink = curr_node.nextLink if prev_node
+                 break 
                else
                  prev_node = curr_node  
                  curr_node = curr_node.nextLink 
